@@ -1,6 +1,7 @@
 package clientlib
 
 import (
+	"JimLineBot-v2/definition"
 	"encoding/json"
 	"github.com/joho/godotenv"
 	"io/ioutil"
@@ -11,7 +12,7 @@ import (
 func GetRadarPicUri() (string, error) {
 	godotenv.Load()
 	cwbAuthorizationToken := os.Getenv("CWB_API_AUTHORIZATION")
-	resp, err := http.Get("definition.RadarRequest" + cwbAuthorizationToken + "&format=JSON")
+	resp, err := http.Get(definition.RadarRequest + cwbAuthorizationToken + "&format=JSON")
 	if err != nil {
 		return "", err
 	}
