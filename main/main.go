@@ -70,6 +70,7 @@ func callbackHandler(w http.ResponseWriter, r *http.Request) {
 						return
 					}
 					client.ReplyMessage(event.ReplyToken, linebot.NewTextMessage(uri)).Do()
+					clientlib.LineNotify(uri)
 				}
 				if _, err = client.ReplyMessage(event.ReplyToken, linebot.NewTextMessage(message.Text)).Do(); err != nil {
 					log.Println(err.Error())
