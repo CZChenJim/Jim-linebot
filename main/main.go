@@ -1,11 +1,10 @@
 package main
 
 import (
-	"encoding/json"
+	"JimLineBot-v2/clientlib"
 	"fmt"
 	"github.com/joho/godotenv"
 	"github.com/line/line-bot-sdk-go/v7/linebot"
-	"io/ioutil"
 	"log"
 	"net/http"
 	"os"
@@ -52,21 +51,24 @@ func callbackHandler(w http.ResponseWriter, r *http.Request) {
 			case *linebot.TextMessage:
 				// 回覆訊息
 				if message.Text == ("雷達回波") {
-					log.Println("in")
-					resp, err := http.Get("https://opendata.cwb.gov.tw/fileapi/v1/opendataapi/O-A0058-003?Authorization=CWB-95394726-5463-4C42-A302-0F25E1A7E3E9&format=JSON")
+					//resp, err := http.Get("https://opendata.cwb.gov.tw/fileapi/v1/opendataapi/O-A0058-003?Authorization=CWB-95394726-5463-4C42-A302-0F25E1A7E3E9&format=JSON")
+					//if err != nil {
+					//	return
+					//}
+					//body, _ := ioutil.ReadAll(resp.Body)
+					//fmt.Println(string(body))
+					//var jsonObj map[string]interface{}
+					//json.Unmarshal(body, &jsonObj)
+					//cwbopendata := jsonObj["cwbopendata"].(map[string]interface{})
+					//dataset := cwbopendata["dataset"].(map[string]interface{})
+					//resource := dataset["resource"].(map[string]interface{})
+					//fmt.Println(resource)
+					//uri := resource["uri"].(string)
+					//fmt.Println(uri)
+					uri, err := clientlib.GetRadarPicUri()
 					if err != nil {
 						return
 					}
-					body, _ := ioutil.ReadAll(resp.Body)
-					fmt.Println(string(body))
-					var jsonObj map[string]interface{}
-					json.Unmarshal(body, &jsonObj)
-					cwbopendata := jsonObj["cwbopendata"].(map[string]interface{})
-					dataset := cwbopendata["dataset"].(map[string]interface{})
-					resource := dataset["resource"].(map[string]interface{})
-					fmt.Println(resource)
-					uri := resource["uri"].(string)
-					fmt.Println(uri)
 					client.ReplyMessage(event.ReplyToken, linebot.NewTextMessage(uri)).Do()
 				}
 				if _, err = client.ReplyMessage(event.ReplyToken, linebot.NewTextMessage(message.Text)).Do(); err != nil {
