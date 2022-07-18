@@ -71,6 +71,7 @@ func callbackHandler(w http.ResponseWriter, r *http.Request) {
 						return
 					}
 					uri = uri + "?" + time.Now().String()
+					log.Println("uri : " + uri)
 					_, err = client.ReplyMessage(event.ReplyToken, linebot.NewImageMessage(uri, uri)).Do()
 					if err != nil {
 						log.Println(err.Error())
