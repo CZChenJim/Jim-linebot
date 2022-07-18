@@ -8,6 +8,7 @@ import (
 	"log"
 	"net/http"
 	"os"
+	"time"
 )
 
 var (
@@ -69,11 +70,11 @@ func callbackHandler(w http.ResponseWriter, r *http.Request) {
 					if err != nil {
 						return
 					}
-					if _, err = client.ReplyMessage(event.ReplyToken, linebot.NewImageMessage(uri, uri)).Do(); err != nil {
+					uri = uri + "?" + time.Now().String()
+					_, err = client.ReplyMessage(event.ReplyToken, linebot.NewImageMessage(uri, uri)).Do()
+					if err != nil {
 						log.Println(err.Error())
 					}
-					client.ReplyMessage(event.ReplyToken, linebot.NewTextMessage(uri)).Do()
-					clientlib.LineNotify(uri)
 				}
 				if _, err = client.ReplyMessage(event.ReplyToken, linebot.NewTextMessage(message.Text)).Do(); err != nil {
 					log.Println(err.Error())
