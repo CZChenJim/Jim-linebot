@@ -71,8 +71,8 @@ func callbackHandler(w http.ResponseWriter, r *http.Request) {
 						log.Println(err.Error())
 					}
 				}
-				if _, err = client.ReplyMessage(event.ReplyToken, linebot.NewTextMessage(message.Text+"? 這個人家聽不懂啦~")).Do(); err != nil {
-					log.Println(err.Error())
+				//if _, err = client.ReplyMessage(event.ReplyToken, linebot.NewTextMessage(message.Text+"? 這個人家聽不懂啦~")).Do(); err != nil {
+				//	log.Println(err.Error())
 				}
 			}
 		}
