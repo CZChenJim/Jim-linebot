@@ -61,8 +61,8 @@ func callbackHandler(w http.ResponseWriter, r *http.Request) {
 					}
 				}
 				if message.Text == ("大學") {
-					uri, err := clientlib.GetRadarPicUri()
-					uri = "https://i.imgur.com/ZPHQdhl.png"
+					var albumId = "JRRhuxN"
+					uri, err := clientlib.GetImageUriFromimgur(albumId)
 					if err != nil {
 						return
 					}
