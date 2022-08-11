@@ -13,8 +13,8 @@ import (
 func GetImageUriFromimgur(albumId string) (string, error) {
 	godotenv.Load()
 	imgurClientId := os.Getenv("IMGUR_CLIENT_ID")
-	req, err := http.NewRequest("GET", "https://api.imgur.com/3/album/"+imgurClientId+"/images", nil)
-	req.Header.Set("Authorization", "Client-ID f8ed96f72e7efa8")
+	req, err := http.NewRequest("GET", "https://api.imgur.com/3/album/"+albumId+"/images", nil)
+	req.Header.Set("Authorization", "Client-ID "+imgurClientId)
 	resp, err := (&http.Client{}).Do(req)
 	if err != nil {
 		return "", err
