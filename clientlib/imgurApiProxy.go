@@ -23,8 +23,12 @@ func GetImageUriFromimgur(albumId string) (string, error) {
 	var jsonObj map[string]interface{}
 	json.Unmarshal(body, &jsonObj)
 	dataList := jsonObj["data"].([]interface{})
-	rand.Seed(time.Now().Unix())
-	data := dataList[rand.Intn(len(dataList))].(map[string]interface{})
+	var randomPick = 0
+	if len(dataList) > 1 {
+		rand.Seed(time.Now().Unix())
+		randomPick = rand.Intn(len(dataList))
+	}
+	data := dataList[randomPick].(map[string]interface{})
 	link := data["link"].(string)
 	defer resp.Body.Close()
 	return link, nil
