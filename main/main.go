@@ -50,22 +50,19 @@ func callbackHandler(w http.ResponseWriter, r *http.Request) {
 			switch message := event.Message.(type) {
 			case *linebot.TextMessage:
 				// 回覆訊息
-				if message.Text == ("雷達回波") {
-					//resp, err := http.Get("https://opendata.cwb.gov.tw/fileapi/v1/opendataapi/O-A0058-003?Authorization=CWB-95394726-5463-4C42-A302-0F25E1A7E3E9&format=JSON")
-					//if err != nil {
-					//	return
-					//}
-					//body, _ := ioutil.ReadAll(resp.Body)
-					//fmt.Println(string(body))
-					//var jsonObj map[string]interface{}
-					//json.Unmarshal(body, &jsonObj)
-					//cwbopendata := jsonObj["cwbopendata"].(map[string]interface{})
-					//dataset := cwbopendata["dataset"].(map[string]interface{})
-					//resource := dataset["resource"].(map[string]interface{})
-					//fmt.Println(resource)
-					//uri := resource["uri"].(string)
-					//fmt.Println(uri)
+				if message.Text == ("雷達回波") || message.Text == ("雷達會破") || message.Text == ("雷達迴波") {
 					uri, err := clientlib.GetRadarPicUri()
+					if err != nil {
+						return
+					}
+					_, err = client.ReplyMessage(event.ReplyToken, linebot.NewImageMessage(uri, uri)).Do()
+					if err != nil {
+						log.Println(err.Error())
+					}
+				}
+				if message.Text == ("大學") {
+					uri, err := clientlib.GetRadarPicUri()
+					uri = "https://i.imgur.com/ZPHQdhl.png"
 					if err != nil {
 						return
 					}
