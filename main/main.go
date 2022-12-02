@@ -18,6 +18,7 @@ var (
 func main() {
 	godotenv.Load()
 	// 建立客戶端
+	//
 	fmt.Println("channelSecret:" + os.Getenv("CHANNEL_SECRET"))
 	//fmt.Println(os.Getenv("CHANNEL_ACCESS_TOKEN"))
 	client, err = linebot.New(os.Getenv("CHANNEL_SECRET"), os.Getenv("CHANNEL_ACCESS_TOKEN"))
