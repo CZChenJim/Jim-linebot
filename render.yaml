@@ -1,0 +1,14 @@
+services:
+  - type: web
+    name: line-bot-go
+    env: go
+    repo: https://github.com/CZChenJim/Jim-linebot.git
+    buildCommand: cd main/main;go build -o app
+    startCommand: ./main/main/app
+    plan: free
+    autoDeploy: false
+    envVars:
+      - key: CHANNEL_TOKEN
+        sync: false
+      - key: CHANNEL_SECRET
+        sync: false
